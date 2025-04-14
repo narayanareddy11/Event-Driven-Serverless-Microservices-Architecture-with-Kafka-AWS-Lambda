@@ -1,0 +1,52 @@
+
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies for Lambda
+      run: |
+        cd lambda_functions/fraud_detection
+        pip install -r requirements.txt --quiet
+
+    - name: Package Lambda function
+      run: |
+        cd lambda_functions/fraud_detection
+        chmod +x deployment_package.sh
+        ./deployment_package.sh
+
+    - name: Run producer tests (optional)
+      run: |
+        cd producer
+        python producer.py & sleep 10 && pkill -f producer.py
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_wrapper: false
+
+    - name: Terraform Format Check
+      run: terraform fmt -check
+      working-directory: terraform
+
+    - name: Terraform Init and Plan
+      run: |
+        terraform init
+        terraform plan
+      working-directory: terraform
