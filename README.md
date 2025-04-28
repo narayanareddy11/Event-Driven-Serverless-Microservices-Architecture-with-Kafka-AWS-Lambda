@@ -161,29 +161,5 @@ Trigger: On `push` or `pull_request` to `main` branch.
 
 ---
 
-## 🧠 Future Enhancements
-
-- [ ] Save flagged transactions to DynamoDB.
-- [ ] Integrate with AWS SNS for Fraud Alert notifications.
-- [ ] Add a Dashboard (Grafana/CloudWatch Metrics).
-- [ ] Use SQS Dead Letter Queue (DLQ) for Lambda event failure handling.
-- [ ] Add automated end-to-end tests (e2e) with Kafka.
-
----
-
-## 📜 License
-
-This project is licensed under the [MIT License](LICENSE).
-
----
-
-## 👨‍💻 Author
-
-**Built with ❤️ by Your Name**
-
-- GitHub: [yourusername](https://github.com/yourusername)
-- LinkedIn: [yourprofile](https://linkedin.com/in/yourprofile)
-
----
 
 > **Feel free to fork, contribute, raise issues, or suggest enhancements! 🚀**
